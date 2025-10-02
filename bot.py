@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from utils import check_verification, get_token
-from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME, BOT_TOKEN, API_HASH , API_ID
+from info import *
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton,ChatPermissions
 from utils import verify_user, check_token
 import pyrogram.utils
@@ -70,7 +70,7 @@ async def verify_message_handler(client: Client, message: Message):
                 f"welcome {message.from_user.mention} \n\n"
                 "⚠️ You need to verify your account to message in our Group ⚡.\n\n"
                 "Please verify your account using the following link 👇\n\n"
-                "✅ If you verify, you can use our bot without any limit for 1 hour 💫:",
+                f"✅ If you verify, you can use our bot without any limit for {DEL_TIME} hour 💫:",
                 reply_markup=InlineKeyboardMarkup([
                     [InlineKeyboardButton('🔗 Verify Now ☘️', url=verification_url)]
                 ])
