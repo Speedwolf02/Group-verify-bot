@@ -2,9 +2,8 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from utils import check_verification, get_token
 from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME
-from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-
+from utils import verify_user, check_token
 # Dictionary to keep track of users with pending verification tokens
 pending_tokens = {}
 
@@ -38,9 +37,36 @@ async def verify_message_handler(client: Client, message: Message):
     except Exception as e:
         print(f"Error: {e}")
 
-# Call this function once the user successfully verifies
-async def complete_verification(user_id: int):
-    if user_id in pending_tokens:
-        del pending_tokens[user_id]  # Allow new token creation next time
-print("✅ Verify Bot Started...")
+
+@app.on_message(filters.private & filters.command("start"))
+async def start(client, message):
+    if len(message.command) > 1:
+        data = message.command[1]
+        if data.split("-", 1)[0] == "verify":
+            userid = data.split("-", 2)[1]
+            token = data.split("-", 3)[2]
+            if str(message.from_user.id) != str(userid):
+                return await message.reply_text(
+                    text="<b>Invalid link or Expired link !</b>",
+                    protect_content=True
+                )
+            is_valid = await check_token(client, userid, token)
+            if is_valid:
+                await message.reply_text(
+                    text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\n\nNow you have unlimited access for all files For 1Hour.</b>",
+                    protect_content=True
+                )
+                if user_id in pending_tokens:
+                    del pending_tokens[user_id]
+                await verify_user(client, userid, token)
+                
+            else:
+                return await message.reply_text(
+                    text="<b>Invalid link or Expired link !</b>",
+                    protect_content=True
+                )
+                if user_id in pending_tokens:
+                    del pending_tokens[user_id]
+            return
+
 app.run()
