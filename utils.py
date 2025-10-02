@@ -4,7 +4,7 @@ from info import API, URL
 from shortzy import Shortzy
 from datetime import datetime, timedelta
 
-ADMIN=6299192020
+ADMIN=[6299192020]
 
 TOKENS = {}
 VERIFIED = {}
