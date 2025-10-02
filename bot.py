@@ -100,8 +100,8 @@ async def start(client, message):
                     text=f"<b>Hey {message.from_user.mention}, You are successfully verified ✅!\n\nNow you have unlimited access for all files For {DEL_TIME}Hours.</b>",
                     protect_content=True
                 )
-                if user_id in pending_tokens:
-                    del pending_tokens[user_id]
+                if userid in pending_tokens:
+                    del pending_tokens[userid]
                 await verify_user(client, userid, token)
                 
             else:
