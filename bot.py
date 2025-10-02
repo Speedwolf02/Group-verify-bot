@@ -9,7 +9,7 @@ pyrogram.utils.MIN_CHAT_ID = -999999999999
 pyrogram.utils.MIN_CHANNEL_ID = -1009999999999
 
 
-GROUP_ID=-1004947533057
+GROUP_ID=-1002988024396
 
 # Dictionary to keep track of users with pending verification tokens
 pending_tokens = {}
@@ -67,7 +67,7 @@ async def verify_message_handler(client: Client, message: Message):
                 pending_tokens[user_id] = verification_url
 
             await message.reply_text(
-                f"welcome {user_id.mention} \n\n"
+                f"welcome {message.from_user.mention} \n\n"
                 "⚠️ You need to verify your account to message in our Group ⚡.\n\n"
                 "Please verify your account using the following link 👇\n\n"
                 "✅ If you verify, you can use our bot without any limit for 1 hour 💫:",
