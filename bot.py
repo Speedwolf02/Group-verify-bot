@@ -15,7 +15,7 @@ app = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
 )
-@app.on_message(filters.group & filters.text & filters.document & filters.video)
+@app.on_message(filters.group)
 async def verify_message_handler(client: Client, message: Message):
     try:
         user_id = message.from_user.id
