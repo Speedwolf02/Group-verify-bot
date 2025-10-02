@@ -2,9 +2,9 @@ import pytz, random, string
 from datetime import date 
 from info import API, URL
 from shortzy import Shortzy
-from config import Config, ADMIN
 from datetime import datetime, timedelta
 
+ADMIN=6299192020
 
 TOKENS = {}
 VERIFIED = {}
