@@ -76,5 +76,7 @@ async def start(client, message):
                 if user_id in pending_tokens:
                     del pending_tokens[user_id]
             return
+    else:
+        await message.reply_text("welcome")
 print("Verify bot started")
 app.run()
