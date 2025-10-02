@@ -1,11 +1,11 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
 from utils import check_verification, get_token
 from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME, BOT_TOKEN, API_HASH , API_ID
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton,ChatPermissions
 from utils import verify_user, check_token
 
-ENCODE_BOT_GROUP_ID=-1004947533057
+GROUP_ID=-1004947533057
+
 # Dictionary to keep track of users with pending verification tokens
 pending_tokens = {}
 
@@ -15,6 +15,35 @@ app = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
 )
+
+restricted_perm = ChatPermissions(
+    can_send_messages=True,
+    can_send_media_messages=False,
+    can_send_polls=False,
+    can_add_web_page_previews=False,
+    can_invite_users=False
+)
+
+# Full permissions
+full_perm = ChatPermissions(
+    can_send_messages=True,
+    can_send_media_messages=True,
+    can_send_polls=False,
+    can_add_web_page_previews=True,
+    can_invite_users=True
+)
+
+# When user joins group
+@app.on_message(filters.new_chat_members)
+async def restrict_new_member(client, message):
+    for member in message.new_chat_members:
+        await app.restrict_chat_member(GROUP_ID, member.id, restricted_perm)
+        await message.reply_text(
+            f"👋 Welcome {member.mention}! \n\n This is Our powerful Encode bot Group You Can leech or Ecode files Faster✨.")
+            
+        )
+
+
 @app.on_message(filters.group)
 async def verify_message_handler(client: Client, message: Message):
     try:
@@ -34,6 +63,7 @@ async def verify_message_handler(client: Client, message: Message):
                 pending_tokens[user_id] = verification_url
 
             await ms.edit(
+                f"welcome {user_id.mention} \n\n"
                 "⚠️ You need to verify your account to message in our Group ⚡.\n\n"
                 "Please verify your account using the following link 👇\n\n"
                 "✅ If you verify, you can use our bot without any limit for 1 hour 💫:",
@@ -61,6 +91,7 @@ async def start(client, message):
                 )
             is_valid = await check_token(client, userid, token)
             if is_valid:
+                await app.restrict_chat_member(GROUP_ID, user_id, full_perm)
                 await message.reply_text(
                     text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\n\nNow you have unlimited access for all files For 1Hour.</b>",
                     protect_content=True
