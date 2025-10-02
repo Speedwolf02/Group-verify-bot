@@ -95,9 +95,9 @@ async def start(client, message):
                 )
             is_valid = await check_token(client, userid, token)
             if is_valid:
-                await app.restrict_chat_member(GROUP_ID, user_id, full_perm)
+                await app.restrict_chat_member(GROUP_ID, userid, full_perm)
                 await message.reply_text(
-                    text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\n\nNow you have unlimited access for all files For 1Hour.</b>",
+                    text=f"<b>Hey {message.from_user.mention}, You are successfully verified ✅!\n\nNow you have unlimited access for all files For {DEL_TIME}Hours.</b>",
                     protect_content=True
                 )
                 if user_id in pending_tokens:
