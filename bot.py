@@ -9,6 +9,12 @@ ENCODE_BOT_GROUP_ID=-1004947533057
 # Dictionary to keep track of users with pending verification tokens
 pending_tokens = {}
 
+app = Client(
+    "verify_bot",
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN
+)
 @app.on_message(filters.chat(ENCODE_BOT_GROUP_ID) & filters.text & ~filters.service)
 async def verify_message_handler(client: Client, message: Message):
     try:
@@ -70,5 +76,5 @@ async def start(client, message):
                 if user_id in pending_tokens:
                     del pending_tokens[user_id]
             return
-
+print("Verify bot started")
 app.run()
