@@ -3,6 +3,7 @@ from datetime import date
 from info import API, URL,DEL_TIME,ADMIN
 from shortzy import Shortzy
 from datetime import datetime, timedelta
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton,ChatPermissions
 
 restricted_perm = ChatPermissions(
     can_send_messages=True,
