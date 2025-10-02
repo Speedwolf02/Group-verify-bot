@@ -3,6 +3,11 @@ from utils import check_verification, get_token
 from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME, BOT_TOKEN, API_HASH , API_ID
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton,ChatPermissions
 from utils import verify_user, check_token
+import pyrogram.utils
+
+pyrogram.utils.MIN_CHAT_ID = -999999999999
+pyrogram.utils.MIN_CHANNEL_ID = -1009999999999
+
 
 GROUP_ID=-1004947533057
 
