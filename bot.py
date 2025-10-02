@@ -21,7 +21,7 @@ async def verify_message_handler(client: Client, message: Message):
         user_id = message.from_user.id
         ms=await message.reply_text("please wait...")
         is_verified = await check_verification(client, user_id)
-        ms.edit("checking token..."
+        ms.edit("checking token...")
         if not is_verified:
             await message.delete()
 
