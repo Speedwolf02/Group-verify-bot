@@ -19,7 +19,7 @@ app = Client(
 async def verify_message_handler(client: Client, message: Message):
     try:
         user_id = message.from_user.id
-        ms=awit message.reply_text("please wait...")
+        ms=await message.reply_text("please wait...")
         is_verified = await check_verification(client, user_id)
         ms.edit("checking token..."
         if not is_verified:
