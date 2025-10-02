@@ -83,7 +83,7 @@ async def check_verification(bot, userid):
         else:
             try:     
                 await app.restrict_chat_member(GROUP_ID, userid, restricted_perm)
-            except exception as e:
+            except Exception as e:
                 await message.reply_text(f"error:{e}")
             return False
     return False
