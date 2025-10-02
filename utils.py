@@ -1,10 +1,10 @@
 import pytz, random, string  
 from datetime import date 
-from info import API, URL
+from info import API, URL,DEL_TIME,ADMIN
 from shortzy import Shortzy
 from datetime import datetime, timedelta
 
-ADMIN=[6299192020]
+
 
 TOKENS = {}
 VERIFIED = {}
@@ -70,7 +70,7 @@ async def check_verification(bot, userid):
         exp_time = tz.localize(exp_time)
 
         # Check if the verification is still valid (within 10 minutes)
-        if now - exp_time < timedelta(hours=1):
+        if now - exp_time < timedelta(hours=DEL_TIME):
             return True
         else:
             return False
