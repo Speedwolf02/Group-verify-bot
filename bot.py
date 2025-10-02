@@ -15,12 +15,13 @@ app = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
 )
-@app.on_message(filters.group(ENCODE_BOT_GROUP_ID) & filters.text & ~filters.service)
+@app.on_message(filters.group & filters.text & filters.document & filters.video)
 async def verify_message_handler(client: Client, message: Message):
     try:
         user_id = message.from_user.id
+        ms=awit message.reply_text("please wait...")
         is_verified = await check_verification(client, user_id)
-
+        ms.edit("checking token..."
         if not is_verified:
             await message.delete()
 
@@ -32,7 +33,7 @@ async def verify_message_handler(client: Client, message: Message):
                 verification_url = await get_token(client, user_id, f"https://t.me/{BOT_USERNAME}?start=")
                 pending_tokens[user_id] = verification_url
 
-            await message.reply_text(
+            await ms.edit(
                 "⚠️ You need to verify your account to message in our Group ⚡.\n\n"
                 "Please verify your account using the following link 👇\n\n"
                 "✅ If you verify, you can use our bot without any limit for 1 hour 💫:",
