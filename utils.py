@@ -4,8 +4,15 @@ from info import API, URL,DEL_TIME,ADMIN
 from shortzy import Shortzy
 from datetime import datetime, timedelta
 
+restricted_perm = ChatPermissions(
+    can_send_messages=True,
+    can_send_media_messages=False,
+    can_send_polls=False,
+    can_add_web_page_previews=False,
+    can_invite_users=False
+)
 
-
+GROUP_ID=-1002988024396
 TOKENS = {}
 VERIFIED = {}
 
@@ -73,5 +80,9 @@ async def check_verification(bot, userid):
         if now - exp_time < timedelta(hours=DEL_TIME):
             return True
         else:
+            try:     
+                await app.restrict_chat_member(GROUP_ID, userid, restricted_perm)
+            except exception as e:
+                await message.reply_text(f"error:{e}")
             return False
     return False
