@@ -1,9 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from utils import check_verification, get_token
-from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME
+from info import VERIFY, VERIFY_TUTORIAL, BOT_USERNAME, BOT_TOKEN, API_HASH , API_ID
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from utils import verify_user, check_token
+
+ENCODE_BOT_GROUP_ID=-1004947533057
 # Dictionary to keep track of users with pending verification tokens
 pending_tokens = {}
 
