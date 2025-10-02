@@ -39,7 +39,7 @@ async def restrict_new_member(client, message):
     for member in message.new_chat_members:
         await app.restrict_chat_member(GROUP_ID, member.id, restricted_perm)
         await message.reply_text(
-            f"👋 Welcome {member.mention}! \n\n This is Our powerful Encode bot Group You Can leech or Ecode files Faster✨.")
+            f"👋 Welcome {member.mention}! \n\n This is Our powerful Encode bot Group You Can leech or Ecode files Faster✨."
             
         )
 
@@ -48,9 +48,8 @@ async def restrict_new_member(client, message):
 async def verify_message_handler(client: Client, message: Message):
     try:
         user_id = message.from_user.id
-        ms=await message.reply_text("please wait...")
         is_verified = await check_verification(client, user_id)
-        ms.edit("checking token...")
+     
         if not is_verified:
             await message.delete()
 
@@ -62,7 +61,7 @@ async def verify_message_handler(client: Client, message: Message):
                 verification_url = await get_token(client, user_id, f"https://t.me/{BOT_USERNAME}?start=")
                 pending_tokens[user_id] = verification_url
 
-            await ms.edit(
+            await message.reply_text(
                 f"welcome {user_id.mention} \n\n"
                 "⚠️ You need to verify your account to message in our Group ⚡.\n\n"
                 "Please verify your account using the following link 👇\n\n"
